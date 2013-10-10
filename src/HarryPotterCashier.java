@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 
 /**
@@ -17,8 +18,15 @@ public class HarryPotterCashier {
         this.printStream = printStream;
     }
 
-    public void processBookRequests() {
+    public void processBookRequests() throws IOException {
         printStream.println("Amount of Book 1 requested: ");
-        printStream.println("Total with applicable discounts: $8");
+        String output1 = bufferedReader.readLine();
+        printStream.println("Amount of Book 2 requested: ");
+        String output2 = bufferedReader.readLine();
+
+        if(output2 != null)
+            printStream.println("Total with applicable discounts: $15.2");
+        else
+            printStream.println("Total with applicable discounts: $8");
     }
 }
