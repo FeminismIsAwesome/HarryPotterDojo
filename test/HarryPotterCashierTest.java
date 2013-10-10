@@ -5,6 +5,7 @@ import org.mockito.InOrder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -21,42 +22,32 @@ public class HarryPotterCashierTest {
     private PrintStream printStream;
     private HarryPotterCashier harryPotterCashier;
     private InOrder inOrder;
+    private PriceCalculator priceCalculator;
+    private HarryPotterReader harryPotterReader;
 
     @Before
     public void setup()
     {
         bufferedReader = mock(BufferedReader.class);
         printStream = mock(PrintStream.class);
-        harryPotterCashier = new HarryPotterCashier(bufferedReader, printStream);
+        harryPotterReader = mock(HarryPotterReader.class);
+        harryPotterCashier = new HarryPotterCashier(bufferedReader, printStream, harryPotterReader);
         inOrder = inOrder(printStream);
+        priceCalculator = mock(PriceCalculator.class);
+        harryPotterCashier.setPriceCalculator(priceCalculator);
     }
 
     @Test
     public void shouldScanThat1CopyOfBook1WantedAndDisplayEight() throws IOException {
 
-
-        when(bufferedReader.readLine()).thenReturn("1").thenReturn(null);
+        List<Integer> listResultsReturnedFromReader = mock(List.class);
+        when(harryPotterReader.readAmountsFromUser()).thenReturn(listResultsReturnedFromReader);
+        when(priceCalculator.determineBestPriceOfBooks(listResultsReturnedFromReader)).thenReturn(8.0);
+        when(bufferedReader.readLine()).thenReturn("1").thenReturn("");
         harryPotterCashier.processBookRequests();
-        inOrder.verify(printStream).println("Amount of Book 1 requested: ");
-        inOrder.verify(printStream).println("Total with applicable discounts: $8");
+
+        verify(printStream).println("Total with applicable discounts: $" + 8.0);
     }
 
-    @Test
-    public void shouldScanSuchThatIf1CopyOfBook1And1CopyOfBook2WantedItShouldProcessADiscount() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1");
-        harryPotterCashier.processBookRequests();
-        verify(printStream).println("Amount of Book 1 requested: ");
-        verify(printStream).println("Amount of Book 2 requested: ");
-        verify(printStream).println("Total with applicable discounts: $" + 8*2*0.95);
 
-    }
-
-    @Test
-    public void shouldScanSuchThat2CopiesOfBook1WantedGivesMultipleCopies() throws IOException
-    {
-        when(bufferedReader.readLine()).thenReturn("2").thenReturn("");
-        harryPotterCashier.processBookRequests();
-        inOrder.verify(printStream).println("Amount of Book 1 requested: ");
-        inOrder.verify(printStream).println("Total with applicable discounts: $16");
-    }
 }
