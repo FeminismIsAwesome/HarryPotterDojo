@@ -50,4 +50,13 @@ public class HarryPotterCashierTest {
         verify(printStream).println("Total with applicable discounts: $" + 8*2*0.95);
 
     }
+
+    @Test
+    public void shouldScanSuchThat2CopiesOfBook1WantedGivesMultipleCopies() throws IOException
+    {
+        when(bufferedReader.readLine()).thenReturn("2").thenReturn("");
+        harryPotterCashier.processBookRequests();
+        inOrder.verify(printStream).println("Amount of Book 1 requested: ");
+        inOrder.verify(printStream).println("Total with applicable discounts: $16");
+    }
 }
