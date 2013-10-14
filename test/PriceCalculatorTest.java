@@ -170,4 +170,28 @@ public class PriceCalculatorTest {
 
     }
 
+    @Test
+    public void shouldReturnDiscountOfSevenBooksThreeTimesWhenBuyingAllSeriesMultipleTimes()
+    {
+        PriceCalculator priceCalculator = new PriceCalculator();
+        List<Integer> bookCounts = Arrays.asList(3,3,3,3,3,3,3);
+
+        double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
+        double expectedValue = PriceCalculator.BOOK_PRICE * 7 * DISCOUNT_FOR_SEVEN_SERIES * 3;
+        assertThat("Should be discounted price of all series three times", price, is(expectedValue));
+
+    }
+
+    @Test
+    public void shouldReturnOptimalPriceAsKeepingDiscountMoreUniformInsteadOfLargestPossible()
+    {
+        PriceCalculator priceCalculator = new PriceCalculator();
+        List<Integer> bookCounts = Arrays.asList(1,2,2,2,2,1);
+
+        double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
+        double expectedValue = 2 * (PriceCalculator.BOOK_PRICE * 5 * DISCOUNT_FOR_FIVE_SERIES);
+        assertThat("Should discount all at 75% rather than do some at 80 and some at 70", price, is(expectedValue));
+
+    }
+
 }
