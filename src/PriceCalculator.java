@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class PriceCalculator {
     public static final double BOOK_PRICE = 8;
@@ -16,7 +14,7 @@ public class PriceCalculator {
 
     private void setupPrices() {
         mapBookNumberToPriceDeal = new HashMap<Integer, Double>();
-        for(int different_books=2; different_books< discounts.size(); different_books++)
+        for(int different_books=0; different_books< discounts.size(); different_books++)
         {
             double bookPrice = discounts.get(different_books) * BOOK_PRICE * different_books;
             mapBookNumberToPriceDeal.put(different_books, bookPrice);
@@ -26,7 +24,12 @@ public class PriceCalculator {
     double determineBestPriceOfBooks(List<Integer> bookCopies) {
         if(bookCopies.size() > 1)
         {
-
+            List<Integer> copyOfBooks = new ArrayList<Integer>(bookCopies);
+            sortCopiesByValueDescending(copyOfBooks);
+            if(copyOfBooks.get(0) > 1)
+            {
+                return BOOK_PRICE + mapBookNumberToPriceDeal.get(bookCopies.size());
+            }
             return mapBookNumberToPriceDeal.get(bookCopies.size());
         }
         else if(bookCopies.size() == 1)
@@ -34,5 +37,10 @@ public class PriceCalculator {
             return bookCopies.get(0) * BOOK_PRICE;
         }
         return 0;
+    }
+
+    private void sortCopiesByValueDescending(List<Integer> copyOfBooks) {
+        Collections.sort(copyOfBooks);
+        Collections.reverse(copyOfBooks);
     }
 }
