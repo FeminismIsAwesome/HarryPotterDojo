@@ -82,6 +82,27 @@ public class PriceCalculatorTest {
     }
 
     @Test
+    public void shouldReturnDiscountOnlyOnceWhenBook1BoughtThreeTimesAndBook2BoughtOnce()
+    {
+        PriceCalculator priceCalculator = new PriceCalculator();
+        List<Integer> bookCounts = Arrays.asList(3,1);
+
+        double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
+        assertThat("Should return price for one book bought twice and book 2 bought once", price, is(2*PriceCalculator.BOOK_PRICE+PriceCalculator.BOOK_PRICE*2*0.95));
+
+    }
+
+    @Test
+    public void shouldReturnTwoSetsOfDiscountsWhenBook1BoughtThreeTimesAndBook2BoughtTwoTimesAndBook3BoughtOnce()
+    {
+        PriceCalculator priceCalculator = new PriceCalculator();
+        List<Integer> bookCounts = Arrays.asList(3,2,1);
+        double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
+        double expectedPrice = 3* PriceCalculator.BOOK_PRICE *0.9 + 2 * PriceCalculator.BOOK_PRICE*0.95+PriceCalculator.BOOK_PRICE;
+        assertThat("Should return price for one book bought thrice and book 2 bought twice and book 3 bought once", price, is(expectedPrice));
+    }
+
+    @Test
     public void shouldReturnDiscountOnlyOnceWhenBook2BoughtTwiceAndBook1BoughtOnce()
     {
         PriceCalculator priceCalculator = new PriceCalculator();

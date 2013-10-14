@@ -28,9 +28,26 @@ public class PriceCalculator {
             sortCopiesByValueDescending(copyOfBooks);
             if(copyOfBooks.get(0) > 1)
             {
-                return BOOK_PRICE + mapBookNumberToPriceDeal.get(bookCopies.size());
+                for(int i=0; i< copyOfBooks.size(); i++)
+                {
+                    int numberOfBooks = copyOfBooks.get(i);
+                    numberOfBooks--;
+                    if(numberOfBooks == 0)
+                    {
+                        copyOfBooks.remove(i);
+                        i--;
+                    }
+                    else
+                    {
+                        copyOfBooks.set(i, numberOfBooks);
+                    }
+                }
+                return determineBestPriceOfBooks(copyOfBooks) + mapBookNumberToPriceDeal.get(bookCopies.size());
             }
-            return mapBookNumberToPriceDeal.get(bookCopies.size());
+            else
+            {
+                return mapBookNumberToPriceDeal.get(bookCopies.size());
+            }
         }
         else if(bookCopies.size() == 1)
         {
