@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.stubbing.OngoingStubbing;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
@@ -68,13 +69,30 @@ public class HarryPotterReaderTest {
     @Test
     public void shouldReturnFourNumbersWhenGivenFourInputs() throws Exception
     {
-        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1").thenReturn("1").thenReturn("1");
+        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1").thenReturn("1").thenReturn("1").thenReturn("");
         List<Integer> result = harryPotterReader.readAmountsFromUser();
 
         verifyPromptsForSeriesAmountsOccur(4);
 
         List<Integer> expectedResult = Arrays.asList(1,1,1,1);
         assertThat(result, is(expectedResult));
+    }
+
+    @Test
+    public void shouldReturnNumberOfInputsGivenCertainNumberOfNonBlankValues() throws Exception
+    {
+        for(int seriesNumber=1; seriesNumber < 7; seriesNumber++)
+        {
+            OngoingStubbing<String> continuedStubbing = when(bufferedReader.readLine());
+            for(int numberOfValues=0; numberOfValues < seriesNumber; numberOfValues++)
+            {
+                continuedStubbing = continuedStubbing.thenReturn("1");
+            }
+            continuedStubbing.thenReturn("");
+            List<Integer> result = harryPotterReader.readAmountsFromUser();
+            assertThat("Should be making a list of size proportional to the inputs given, in this case: " + seriesNumber, result.size(), is(seriesNumber));
+        }
+
     }
 
     private void verifyPromptsForSeriesAmountsOccur(int seriesAmount) {

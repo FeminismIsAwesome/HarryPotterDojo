@@ -24,6 +24,7 @@ public class PriceCalculatorTest {
     public static final double DISCOUNT_FOR_TWO_SERIES = 0.95;
     public static final double DISCOUNT_FOR_THREE_SERIES = 0.9;
     public static final double DISCOUNT_FOR_FOUR_SERIES = 0.85;
+    private static final double DISCOUNT_FOR_SEVEN_SERIES = 0.65;
     PriceCalculator priceCalculator;
 
     @Before
@@ -136,6 +137,17 @@ public class PriceCalculatorTest {
         double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
         double expectedPrice = 6 * PriceCalculator.BOOK_PRICE * DISCOUNT_FOR_SIX_SERIES;
         assertThat("Should return price for one book 1,2,3,4,5,6 bought once", price, is(expectedPrice));
+
+    }
+    
+    @Test
+    public void shouldReturnDiscountWhenBuying1CopyOfBooks1and2and3and4and5and6and7()
+    {
+        PriceCalculator priceCalculator = new PriceCalculator();
+        List<Integer> bookCounts = Arrays.asList(1,1,1,1,1,1,1);
+        double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
+        double expectedPrice = 7 * PriceCalculator.BOOK_PRICE * DISCOUNT_FOR_SEVEN_SERIES;
+        assertThat("Should return price for one book 1,2,3,4,5,6,7 bought once", price, is(expectedPrice));
 
     }
     
