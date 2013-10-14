@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HarryPotterReader {
-    public static final int AMOUNT_OF_SERIES_BOOKS_FOR_SALE = 3;
+    public static final int AMOUNT_OF_SERIES_BOOKS_FOR_SALE = 4;
     PrintStream printStream;
     BufferedReader bufferedReader;
 

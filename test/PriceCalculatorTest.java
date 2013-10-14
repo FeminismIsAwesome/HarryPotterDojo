@@ -50,6 +50,16 @@ public class PriceCalculatorTest {
     }
 
     @Test
+    public void shouldReturnDiscountForFourSeriesWhenBooks1And2And3And4Bought()
+    {
+        PriceCalculator priceCalculator = new PriceCalculator();
+        List<Integer> bookCounts = Arrays.asList(1,1,1,1);
+        double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
+        assertThat("Should return price for discount when book 1,2,3,4 bought once", price, is(PriceCalculator.BOOK_PRICE*4*0.85));
+
+    }
+
+    @Test
     public void shouldReturnPriceOfOneBookTwiceWhenOnlyOneBookInSeriesBought()
     {
         PriceCalculator priceCalculator = new PriceCalculator();

@@ -66,9 +66,28 @@ public class HarryPotterReaderTest {
     }
 
     @Test
+    public void shouldReturnFourNumbersWhenGivenFourInputs() throws Exception
+    {
+        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1").thenReturn("1").thenReturn("1");
+        List<Integer> result = harryPotterReader.readAmountsFromUser();
+
+        verifyPromptsForSeriesAmountsOccur(4);
+
+        List<Integer> expectedResult = Arrays.asList(1,1,1,1);
+        assertThat(result, is(expectedResult));
+    }
+
+    private void verifyPromptsForSeriesAmountsOccur(int seriesAmount) {
+        for(int i=1; i<= seriesAmount; i++)
+        {
+        verify(printStream).println("Amount of Book " + i + " requested: ");
+        }
+    }
+
+    @Test
     public void shouldReturnThreeNumbersWhenGivenThreeInputs() throws Exception
     {
-        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1").thenReturn("1");
+        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1").thenReturn("1").thenReturn("");
         List<Integer> result = harryPotterReader.readAmountsFromUser();
 
         verify(printStream).println("Amount of Book 1 requested: ");
