@@ -3,7 +3,7 @@ import java.util.*;
 public class PriceCalculator {
     public static final double BOOK_PRICE = 8;
 
-    private List<Double> discounts = Arrays.asList(0.0,1.0,0.95,0.9,0.85);
+    private List<Double> discounts = Arrays.asList(0.0,1.0,0.95,0.9,0.85,0.75);
 
     private HashMap<Integer, Double> mapBookNumberToPriceDeal ;
 
@@ -28,20 +28,7 @@ public class PriceCalculator {
             sortCopiesByValueDescending(copyOfBooks);
             if(copyOfBooks.get(0) > 1)
             {
-                for(int i=0; i< copyOfBooks.size(); i++)
-                {
-                    int numberOfBooks = copyOfBooks.get(i);
-                    numberOfBooks--;
-                    if(numberOfBooks == 0)
-                    {
-                        copyOfBooks.remove(i);
-                        i--;
-                    }
-                    else
-                    {
-                        copyOfBooks.set(i, numberOfBooks);
-                    }
-                }
+                removeBookCountsByOne(copyOfBooks);
                 return determineBestPriceOfBooks(copyOfBooks) + mapBookNumberToPriceDeal.get(bookCopies.size());
             }
             else
@@ -54,6 +41,23 @@ public class PriceCalculator {
             return bookCopies.get(0) * BOOK_PRICE;
         }
         return 0;
+    }
+
+    private void removeBookCountsByOne(List<Integer> copyOfBooks) {
+        for(int i=0; i< copyOfBooks.size(); i++)
+        {
+            int numberOfBooks = copyOfBooks.get(i);
+            numberOfBooks--;
+            if(numberOfBooks == 0)
+            {
+                copyOfBooks.remove(i);
+                i--;
+            }
+            else
+            {
+                copyOfBooks.set(i, numberOfBooks);
+            }
+        }
     }
 
     private void sortCopiesByValueDescending(List<Integer> copyOfBooks) {
