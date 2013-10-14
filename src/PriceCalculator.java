@@ -35,7 +35,8 @@ public class PriceCalculator {
                 else
                 {
                     removeBookCountsByOne(copyOfBooks);
-                    return determineBestPriceOfBooks(copyOfBooks) + mapBookNumberToPriceDeal.get(bookCopies.size());
+
+                    return roundValue(determineBestPriceOfBooks(copyOfBooks) + mapBookNumberToPriceDeal.get(bookCopies.size()));
                 }
             }
             else
@@ -48,6 +49,10 @@ public class PriceCalculator {
             return bookCopies.get(0) * BOOK_PRICE;
         }
         return 0;
+    }
+
+    private double roundValue(double v) {
+        return (double) Math.round(100*v)/100.0;  //To change body of created methods use File | Settings | File Templates.
     }
 
     private void removeBookCountsByOne(List<Integer> copyOfBooks) {
