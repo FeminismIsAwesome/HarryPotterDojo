@@ -79,6 +79,18 @@ public class HarryPotterReaderTest {
     }
 
     @Test
+    public void shouldPrintNumberOfInputsRequestedGivenCertainNumberOfBooksInSeries() throws Exception
+    {
+        when(bufferedReader.readLine()).thenReturn("");
+        harryPotterReader.readAmountsFromUser();
+        for(int seriesNumber=1; seriesNumber <= 7; seriesNumber++)
+        {
+            verify(printStream).println("Amount of Book " + seriesNumber + " requested: ");
+        }
+
+    }
+
+    @Test
     public void shouldReturnNumberOfInputsGivenCertainNumberOfNonBlankValues() throws Exception
     {
         for(int seriesNumber=1; seriesNumber < 7; seriesNumber++)
