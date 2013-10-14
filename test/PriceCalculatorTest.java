@@ -194,4 +194,41 @@ public class PriceCalculatorTest {
         assertThat("Should discount all at max value then one discount at the two series value", bestPrice, is(expectedPrice));
     }
 
+    @Test
+    public void shouldCalculateProperDiscountForSeriesInBatchesOfSeven()
+    {
+        List<Integer> bookCounts = Arrays.asList(4,4,4,4,5,4,5);
+
+        double bestPrice = priceCalculator.determineBestPriceOfBooks(bookCounts);
+
+        double expectedPrice = (8*7*0.65)*3+(0.65*7*8 + 0.95*2*8);
+        expectedPrice = (double) Math.round(expectedPrice*100)/100;
+        assertThat("Should print price value of seven series three times plus edge case", bestPrice, is(expectedPrice));
+    }
+
+    @Test
+    public void shouldCalculateCorrectlyForOneSetOfWholeSeriesPlusAnother3PartsOfSeries()
+    {
+        List<Integer> bookCounts = Arrays.asList(1,1,1,1,2,2,2);
+
+        double bestPrice = priceCalculator.determineBestPriceOfBooks(bookCounts);
+
+        double expectedPrice = (8*7*0.65)+(3*0.9*8);
+        expectedPrice = (double) Math.round(expectedPrice*100)/100;
+        assertThat("Should print price value of seven series + three series", bestPrice, is(expectedPrice));
+    }
+
+    @Test
+    public void shouldCalculateCorrectlyForOneSetOfWholeSeriesPlusAnother5PartsOfSeries()
+    {
+        List<Integer> bookCounts = Arrays.asList(1,1,2,2,2,2,2);
+
+        double bestPrice = priceCalculator.determineBestPriceOfBooks(bookCounts);
+
+        double expectedPrice = (8*7*0.65)+(5*0.75*8);
+        expectedPrice = (double) Math.round(expectedPrice*100)/100;
+        assertThat("Should print price value of seven series + five series", bestPrice, is(expectedPrice));
+
+    }
+
 }
