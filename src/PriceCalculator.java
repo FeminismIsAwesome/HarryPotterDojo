@@ -51,7 +51,7 @@ public class PriceCalculator {
         return 0;
     }
 
-    private double roundValue(double v) {
+    public double roundValue(double v) {
         return (double) Math.round(100*v)/100.0;  //To change body of created methods use File | Settings | File Templates.
     }
 

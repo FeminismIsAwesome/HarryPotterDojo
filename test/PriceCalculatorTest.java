@@ -167,6 +167,7 @@ public class PriceCalculatorTest {
 
         double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
         double expectedValue = PriceCalculator.BOOK_PRICE * 7 * DISCOUNT_FOR_SEVEN_SERIES * 3;
+        expectedValue = priceCalculator.roundValue(expectedValue);
         assertThat("Should be discounted price of all series three times", price, is(expectedValue));
 
     }
