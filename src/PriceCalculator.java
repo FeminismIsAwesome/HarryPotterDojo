@@ -3,7 +3,7 @@ import java.util.*;
 public class PriceCalculator {
     public static final double BOOK_PRICE = 8;
 
-    private List<Double> discounts = Arrays.asList(0.0,1.0,0.95,0.9,0.85,0.75);
+    private List<Double> discounts = Arrays.asList(0.0,1.0,0.95,0.9,0.85,0.75,0.7);
 
     private HashMap<Integer, Double> mapBookNumberToPriceDeal ;
 
