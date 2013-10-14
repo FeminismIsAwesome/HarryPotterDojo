@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HarryPotterReader {
+    public static final int AMOUNT_OF_SERIES_BOOKS_FOR_SALE = 2;
     PrintStream printStream;
     BufferedReader bufferedReader;
 
@@ -14,17 +15,17 @@ public class HarryPotterReader {
     }
 
     List<Integer> readAmountsFromUser() throws IOException {
-        printStream.println("Amount of Book 1 requested: ");
-        int book1Copies = readBookCountFromUser(bufferedReader.readLine());
-
-        printStream.println("Amount of Book 2 requested: ");
-
-        int book2Copies = readBookCountFromUser(bufferedReader.readLine());
         List<Integer> bookCopies = new ArrayList<Integer>();
-        if (book1Copies != 0)
-            bookCopies.add(book1Copies);
-        if (book2Copies != 0)
-            bookCopies.add(book2Copies);
+        for(int series_number=1; series_number <= AMOUNT_OF_SERIES_BOOKS_FOR_SALE; series_number++)
+        {
+            printStream.println("Amount of Book " + series_number + " requested: ");
+            int bookCopyAmount = readBookCountFromUser(bufferedReader.readLine());
+            if(bookCopyAmount != 0)
+            {
+                bookCopies.add(bookCopyAmount);
+            }
+
+        }
         return bookCopies;
     }
 
