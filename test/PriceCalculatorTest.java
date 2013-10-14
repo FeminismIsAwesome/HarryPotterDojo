@@ -52,7 +52,8 @@ public class PriceCalculatorTest {
         List<Integer> bookCounts = Arrays.asList(1,1);
 
         double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
-        assertThat("Should return price for one book when book 1, book 2 bought once", price, is(PriceCalculator.BOOK_PRICE*2*DISCOUNT_FOR_TWO_SERIES));
+        double expectedValue = PriceCalculator.BOOK_PRICE * 2 * DISCOUNT_FOR_TWO_SERIES;
+        assertThat("Should return price for one book when book 1, book 2 bought once", price, is(expectedValue));
 
     }
 
@@ -62,7 +63,8 @@ public class PriceCalculatorTest {
         PriceCalculator priceCalculator = new PriceCalculator();
         List<Integer> bookCounts = Arrays.asList(1,1,1);
         double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
-        assertThat("Should return price for discount when book 1,2,3 bought once", price, is(PriceCalculator.BOOK_PRICE*3* DISCOUNT_FOR_THREE_SERIES));
+        double expectedValue = PriceCalculator.BOOK_PRICE * 3 * DISCOUNT_FOR_THREE_SERIES;
+        assertThat("Should return price for discount when book 1,2,3 bought once", price, is(expectedValue));
     }
 
     @Test
@@ -71,7 +73,8 @@ public class PriceCalculatorTest {
         PriceCalculator priceCalculator = new PriceCalculator();
         List<Integer> bookCounts = Arrays.asList(1,1,1,1);
         double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
-        assertThat("Should return price for discount when book 1,2,3,4 bought once", price, is(PriceCalculator.BOOK_PRICE*4* DISCOUNT_FOR_FOUR_SERIES));
+        double expectedValue = PriceCalculator.BOOK_PRICE * 4 * DISCOUNT_FOR_FOUR_SERIES;
+        assertThat("Should return price for discount when book 1,2,3,4 bought once", price, is(expectedValue));
 
     }
 
@@ -93,7 +96,8 @@ public class PriceCalculatorTest {
         List<Integer> bookCounts = Arrays.asList(2,1);
 
         double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
-        assertThat("Should return price for one book bought twice and book 2 bought once", price, is(PriceCalculator.BOOK_PRICE+PriceCalculator.BOOK_PRICE*2*DISCOUNT_FOR_TWO_SERIES));
+        double expectedValue = PriceCalculator.BOOK_PRICE + PriceCalculator.BOOK_PRICE * 2 * DISCOUNT_FOR_TWO_SERIES;
+        assertThat("Should return price for one book bought twice and book 2 bought once", price, is(expectedValue));
 
     }
 
@@ -104,7 +108,8 @@ public class PriceCalculatorTest {
         List<Integer> bookCounts = Arrays.asList(3,1);
 
         double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
-        assertThat("Should return price for one book bought twice and book 2 bought once", price, is(2*PriceCalculator.BOOK_PRICE+PriceCalculator.BOOK_PRICE*2*DISCOUNT_FOR_TWO_SERIES));
+        double expectedValue = 2 * PriceCalculator.BOOK_PRICE + PriceCalculator.BOOK_PRICE * 2 * DISCOUNT_FOR_TWO_SERIES;
+        assertThat("Should return price for one book bought twice and book 2 bought once", price, is(expectedValue));
 
     }
 
@@ -160,7 +165,8 @@ public class PriceCalculatorTest {
         List<Integer> bookCounts = Arrays.asList(1,2);
 
         double price = priceCalculator.determineBestPriceOfBooks(bookCounts);
-        assertThat("Should return price for one book bought once and book 2 bought twice", price, is(PriceCalculator.BOOK_PRICE+PriceCalculator.BOOK_PRICE*2*DISCOUNT_FOR_TWO_SERIES));
+        double expectedValue = PriceCalculator.BOOK_PRICE + PriceCalculator.BOOK_PRICE * 2 * DISCOUNT_FOR_TWO_SERIES;
+        assertThat("Should return price for one book bought once and book 2 bought twice", price, is(expectedValue));
 
     }
 
