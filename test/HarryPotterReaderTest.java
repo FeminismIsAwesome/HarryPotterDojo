@@ -55,7 +55,7 @@ public class HarryPotterReaderTest {
     @Test
     public void shouldReturnOnlyOneValueInListWhenBook1HasNoBooksButBook2HasOne() throws Exception
     {
-        when(bufferedReader.readLine()).thenReturn("").thenReturn("1");
+        when(bufferedReader.readLine()).thenReturn("").thenReturn("1").thenReturn("");
         List<Integer> result = harryPotterReader.readAmountsFromUser();
 
         verify(printStream).println("Amount of Book 1 requested: ");
@@ -66,9 +66,23 @@ public class HarryPotterReaderTest {
     }
 
     @Test
+    public void shouldReturnThreeNumbersWhenGivenThreeInputs() throws Exception
+    {
+        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1").thenReturn("1");
+        List<Integer> result = harryPotterReader.readAmountsFromUser();
+
+        verify(printStream).println("Amount of Book 1 requested: ");
+        verify(printStream).println("Amount of Book 2 requested: ");
+        verify(printStream).println("Amount of Book 3 requested: ");
+
+        List<Integer> expectedResult = Arrays.asList(1,1,1);
+        assertThat(result, is(expectedResult));
+    }
+
+    @Test
     public void shouldReadOutTwoNumbersWhenGivenTwoInputs() throws Exception
     {
-        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1");
+        when(bufferedReader.readLine()).thenReturn("1").thenReturn("1").thenReturn("");
         List<Integer> result = harryPotterReader.readAmountsFromUser();
 
         verify(printStream).println("Amount of Book 1 requested: ");
